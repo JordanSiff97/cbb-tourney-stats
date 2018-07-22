@@ -1,6 +1,11 @@
 import csv
 import math
 
+'''
+Calculates "Siff Parity" stat using srs for every 
+year since 1985
+'''
+
 def stdDev(nrtg_list):
 	sum = 0
 	team_num = 0
