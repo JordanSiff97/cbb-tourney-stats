@@ -1,12 +1,20 @@
 import csv
 
+'''
+Calculates the average total points scored in a tourney game
+for each season since 1985, then puts the values into a csv
+'''
+
+#dictionary to store total points scored in each years tourney
 years = {}
 
+#opens csv with all tourney game results
 with open('NCAA_MM_Results.csv', 'rb') as csvfile:
 	reader = csv.reader(csvfile)
 
 	header = reader.next()
 
+	#parses each row in the csv and adds total points scored to respective year's total
 	for row in reader:
 		year = row[0][-2:]
 		if int(year) < 85:
@@ -20,8 +28,10 @@ with open('NCAA_MM_Results.csv', 'rb') as csvfile:
 		else:
 			years[year] = winScore + loseScore
 
+#list to store average total points per tourney game in a given season
 avgs = []
 
+#calculates average total points scored, creates tuple with value
 for year in years.keys():
 	totalYearScore = years[year]
 	avgYearScore = totalYearScore / 63.0
@@ -30,6 +40,7 @@ for year in years.keys():
 
 avgs.sort()
 
+#writes values to csv
 with open('ncaa_tourney_avgs.csv', 'wb') as csvwrite:
 	writer = csv.writer(csvwrite)
 	header = ["Year", "Average Total Score"]
@@ -37,4 +48,5 @@ with open('ncaa_tourney_avgs.csv', 'wb') as csvwrite:
 	for year in avgs:
 		writer.writerow(year)
 
+#prints values to cli
 print avgs
