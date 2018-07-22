@@ -1,8 +1,16 @@
 import csv
 
+'''
+Calculates the number of upsets and the total size of upsets 
+in each season's tourney since 1985
+'''
+
+
+#dictionaries to store number of upsets and size of upsets
 upsetCounts = {}
 upsetSizes = {}
 
+#parses csv of tourney results and updates dictionaries when an upset is detected
 with open('NCAA_MM_Results.csv', 'rb') as csvfile:
 	reader = csv.reader(csvfile)
 
@@ -26,7 +34,7 @@ with open('NCAA_MM_Results.csv', 'rb') as csvfile:
 				upsetCounts[year] = 1
 				upsetSizes[year] = winner - loser
 
-
+	#writes a csv with upset counts/size for each season
 	def createExcelFile(upsetTups):
 		with open('cbb_upsets.csv', "wb") as csvfile2:
 			writer = csv.writer(csvfile2, delimiter=',')
@@ -37,23 +45,27 @@ with open('NCAA_MM_Results.csv', 'rb') as csvfile:
 
 
 	ret = []
-	totalSinceNewEra = 0
-	total = 0
+	totalCountSinceNewEra = 0
+	totalSizeSinceNewEra = 0
 	upsetDict = {}
+
+	#calculates average number of upsets per year and average total size of upsets per year
 	for year in upsetCounts.keys():
 		tup = (year, upsetCounts[year], upsetSizes[year])
 		upsetDict[year] = (upsetCounts[year], upsetSizes[year])
-		totalSinceNewEra += upsetCounts[year]
-		total += upsetSizes[year]
+		totalCountSinceNewEra += upsetCounts[year]
+		totalSizeSinceNewEra += upsetSizes[year]
 		ret.append(tup)
 	ret.sort()
+
+	#initiates create csv and prints averages to cli
 	for tup in ret:
 		print tup
-	print "Upsets per year: " , totalSinceNewEra / (2016-1985.0)
-	print "Upset sizes per year:", total / (2016-1985.0)
+	print "Upsets per year: " , totalCountSinceNewEra / (2016-1985.0)
+	print "Upset sizes per year:", totalSizeSinceNewEra / (2016-1985.0)
 	createExcelFile(ret)
 
-	print 81.2258/18.16129
+	#print 81.2258/18.16129
 
 
 
