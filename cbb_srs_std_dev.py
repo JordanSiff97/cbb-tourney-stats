@@ -26,7 +26,7 @@ parity_scores = {}
 
 for year in range(34):
 	season = 1985 + year
-	filename = 'cbb' + str(season) + '.csv'
+	filename = 'cbb team stats by season/' + 'cbb' + str(season) + '.csv'
 	with open(filename, 'rb') as csvfile:
 		reader = csv.reader(csvfile)
 		blank = reader.next()
@@ -40,10 +40,12 @@ for year in range(34):
 		parity_rtg = stdDev(all_srs)
 		print(season, parity_rtg)
 	parity_scores[season] = parity_rtg
+
+	'''
 	with open("cbb_upsets.csv", 'a') as writefile:
 		writer = csv.writer(writefile)
 		writer.writerow([season, parity_rtg])
-
+	'''
 
 
 
