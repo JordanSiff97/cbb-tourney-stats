@@ -2,10 +2,13 @@ import cbb_mm_parse_upsets
 import cbb_srs_std_dev
 import csv
 
+'''
+Creates csv with multiple stats
+'''
+
 parity_scores = cbb_srs_std_dev.parity_scores
 upsetDict = cbb_mm_parse_upsets.upsetDict
 
-loading_str = ""
 
 with open("cbb_upsets.csv", 'wb') as csvfile:
 	writer = csv.writer(csvfile)
